@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Vlad Malinovskyy
+  description: Ansible role to run Docker
+
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  galaxy_tags: []
+
+dependencies: 
+  #- role: nginx-role
+  #- src: git+https://github.com/r00tvvm/nginx-role.git
+  #  scm: git
+  #  version: master
+  #  name: nginx-role
+  # - { role: nginx-role }

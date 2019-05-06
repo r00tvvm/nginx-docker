@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  debian-nginx:
+    image: nginx
+    environment:
+      stage:      "docker"
+    ports:
+      - 80
+  cent-os:
+    image: camw/centos-nginx
+    environment:
+      stage:      "docker"
+    ports:
+      - 80

@@ -1,0 +1,4 @@
+---
+- name: nginx-role
+  src: git+https://github.com/r00tvvm/nginx-role.git
+  version: master 

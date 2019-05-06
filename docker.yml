@@ -1,0 +1,9 @@
+---
+
+
+- hosts: web
+  become: true
+  roles:
+    - role: docker
+      images: "{{ os_images }}"
+    - { role: nginx-role, tags: [never,nginx] }
