@@ -1,4 +1,22 @@
 ---
+- name: Install package dependencies
+  include: docker-task.yml
 
-- include: docker.yml
-  tags: docker
+- local_action: stat path="{{ role_path }}/files/docker-compose.yml"
+  register: compose_file
+  become: no
+  tags: always
+
+- name: Compose exists debug
+  debug: 
+    msg: "file={{ compose_file | default('') }}"
+  when: compose_file.stat.exists
+  tags: always
+
+- name: Run docker tasks
+  include: docker-task.yml
+  when: not (compose_file.stat.exists)
+
+- name: Run docker-compose tasks
+  include: compose-task.yml
+  when: compose_file is defined and compose_file.stat.exists

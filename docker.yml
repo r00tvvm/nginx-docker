@@ -1,9 +1,10 @@
 ---
 
-
+#- hosts: localhost
 - hosts: web
   become: true
   roles:
     - role: docker
       images: "{{ os_images }}"
-    - { role: nginx-role, tags: [never,nginx] }
+    - role: nginx-role
+    #- { role: nginx-role, tags: [never, nginx] }

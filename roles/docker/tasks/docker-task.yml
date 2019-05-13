@@ -1,0 +1,53 @@
+---
+- copy:
+    src: "{{ role_path }}/files/{{item}}"
+    dest: /tmp/{{item}}
+  with_items:
+    - nginx.conf
+    - Dockerfile
+  tags: docker
+
+# Run containers
+- name: Docker start containers
+  docker_container:
+    name:  "{{ item.key }}"
+    image: "{{ item.value }}"
+    state: started
+    published_ports: all
+  with_dict: "{{ images }}"
+  register: debian_nginx_metadata
+  tags: docker
+
+- name: Add containers to inventory
+  add_host:
+    hostname: '{{ item.key }}'
+    ansible_connection: docker
+    name: "{{ item.key }}"
+    ansible_connection: docker
+  with_dict: "{{ images }}"
+  changed_when: false
+  tags: docker
+
+- name: Get package manager of the container
+  delegate_to: "{{ item.key }}"
+  debug:
+    msg: "ansible_pkg_mgr = {{ ansible_pkg_mgr }}"
+  with_dict: "{{ images }}"
+  tags: [ never, debug ]
+
+
+- name: Docker Commit Container to Image
+  shell: |
+      docker commit {{ item.key }} repo/{{ item.key }}
+  with_dict: "{{ images }}"
+  tags: [ 'never', 'commit' ]
+
+
+- name: Docker stop containers
+  docker_container:
+    name:  "{{ item.key }}"
+    image: "{{ item.value }}"
+    state: absent
+  with_dict: "{{ images }}"
+  tags: [ 'never', 'stop' ]
+

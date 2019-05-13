@@ -1,0 +1,24 @@
+---
+
+- name: Ensure pip docker module installed
+  become: yes
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker
+    - docker-compose
+  changed_when: false
+  tags: always
+
+- debug:
+    msg: "{{ansible_pkg_mgr}}"
+  tags: always
+
+- name: Install docker 
+  shell: |
+      curl -fsSL https://get.docker.com | sudo sh
+      sudo usermod -aG docker $USER
+  when: ansible_pkg_mgr in ('yum','apt')
+  register: apt_result
+  tags: [ never, docker-install ]

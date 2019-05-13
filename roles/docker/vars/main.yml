@@ -1,4 +1,4 @@
 ---
 os_images:
-  debian-nginx: nginx
-  centos-nginx: camw/centos-nginx
+  debian_nginx: nginx
+  centos_nginx: camw/centos-nginx

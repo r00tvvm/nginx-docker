@@ -1,3 +1,10 @@
 ---
+- name: Docker role
+  hosts: web
+  #hosts: localhost
+  #connection: local
+  become: true
+  gather_facts: false
+
 - import_playbook: docker.yml
 #- import_playbook: nginx.yml

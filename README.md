@@ -3,6 +3,10 @@
 This is a Ansible role for Docker nxinx
 ## Prerequisites
 Installed and configured Ansible 
+```
+  pip install docker
+  pip install 'docker-compose>=1.7.0'
+```
 Add *hosts* file into same directory and usew role with -i hosts
 ```
 Example: 
@@ -20,14 +24,14 @@ Example:
 ```
 
 ## Usage
-* Clone and install requirements
+* Clone and install dependent role
 ```
  > git clone https://github.com/r00tvvm/nginx-docker.git && cd nginx-docker
- > ansible-galaxy install -r requirements.yml
+ > ansible-galaxy install -r requirements.yml -f
 ```
 * Run Docker containers
 ```
- > ansible-playbook -i hosts site.yml
+ > ansible-playbook -i hosts site.yml -t docker
 ```
 * Run Docker commit running containers
 ```
