@@ -20,10 +20,9 @@
 
 - name: Add containers to inventory
   add_host:
+    ansible_connection: docker
     hostname: '{{ item.key }}'
-    ansible_connection: docker
     name: "{{ item.key }}"
-    ansible_connection: docker
   with_dict: "{{ images }}"
   changed_when: false
   tags: docker

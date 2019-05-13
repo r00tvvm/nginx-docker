@@ -27,6 +27,7 @@ Example:
 * Clone and install dependent role
 ```
  > git clone https://github.com/r00tvvm/nginx-docker.git && cd nginx-docker
+ > chmod +x ./playbook.sh
  > ansible-galaxy install -r requirements.yml -f
 ```
 * Run Docker containers
@@ -41,7 +42,13 @@ Example:
 ```
  > ansible-playbook -i hosts site.yml -t stop
 ```
-* Install Nginx server to inventory hosts
+* Install/remove Nginx server to inventory hosts
 ```
  > ansible-playbook -i hosts site.yml -t nginx
+ > ansible-playbook -i hosts site.yml -t remove
+```
+## Script usage
+```
+ >  ./playbook.sh -h
+ > ./playbook.sh -i hosts
 ```
